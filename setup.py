@@ -46,7 +46,10 @@ setup(
     # Packages and depencies
     package_dir={'': 'src'},
     packages=find_packages('src'),
-    install_requires=[],
+    install_requires=[
+        'Pillow',
+        'PyQt5',
+    ],
     extras_require={
         'testing': ['pytest'],
     },
