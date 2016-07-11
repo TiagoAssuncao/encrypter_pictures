@@ -56,9 +56,29 @@ class ImageViewer(QMainWindow):
     def buttonClicked(self):
         try:
             self.statusBar().showMessage("Encrypting: " + self.fileName)
+            self.output_path = cript(self.fileName)
+            self.show_image()
         except AttributeError:
             self.statusBar().showMessage("Select an image")
 
+    def show_image(self):
+        """docstring for show_image"""
+        if self.output_path:
+            image = QImage(self.output_path)
+            if image.isNull():
+                QMessageBox.information(self, "Image Viewer",
+                        "Cannot load %s." % self.output_path)
+                return
+
+            self.imageLabel.setPixmap(QPixmap.fromImage(image))
+            self.scaleFactor = 1.0
+
+            self.printAct.setEnabled(True)
+            self.fitToWindowAct.setEnabled(True)
+            self.updateActions()
+
+            if not self.fitToWindowAct.isChecked():
+                self.imageLabel.adjustSize()
     def open(self):
         self.fileName, _ = QFileDialog.getOpenFileName(self, "Open File",
                 QDir.currentPath())
