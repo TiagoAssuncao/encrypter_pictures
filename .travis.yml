@@ -4,4 +4,4 @@ python:
   - 3.5
 
 install:
-    - pip3 install encrypter_pictures --user
+    - pip3 install encrypter_pictures
