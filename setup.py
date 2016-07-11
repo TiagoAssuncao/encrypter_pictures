@@ -29,8 +29,8 @@ setup(
     version=version,
     author=author,
     author_email='tiago@sof2u.com',
-    url='',
-    description='A short description for your project.',
+    url='https://github.com/TiagoAssuncao/encrypter_pictures',
+    description='System wich cat a image and crip and decript it with rsa.',
     long_description=open('README.rst').read(),
 
     # Classifiers (see https://pypi.python.org/pypi?%3Aaction=list_classifiers)
@@ -53,7 +53,7 @@ setup(
 
     # Scripts
     entry_points={
-        'console_scripts': ['encrypter-pictures = encrypter_pictures.__main__:main'],
+        'encrypter_pictures': ['encrypter_pictures = encrypter_pictures.__main__:main'],
     },
 
     # Other configurations
