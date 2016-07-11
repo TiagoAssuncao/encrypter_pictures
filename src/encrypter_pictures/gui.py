@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 from PyQt5.QtCore import QDir, Qt
-from PyQt5.QtGui import QImage, QPainter, QPalette, QPixmap
+from PyQt5.QtGui import QImage, QPainter, QPalette, QPixmap, QIcon
 from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QLabel,
         QMainWindow, QMenu, QMessageBox, QScrollArea, QSizePolicy, QPushButton,
-        QHBoxLayout, QVBoxLayout)
+        QHBoxLayout, QVBoxLayout, qApp)
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
 from cript import cript
 import sys
@@ -35,9 +35,12 @@ class ImageViewer(QMainWindow):
 
     def initUI(self):
 
-        self.okButton = QPushButton("Criptografar", self)
-        self.okButton.move(45, 50)
-        self.okButton.clicked.connect(self.buttonClicked)
+        exitAction = QAction(QIcon('encrypt.png'), 'Encrypt', self)
+        exitAction.setShortcut('Ctrl+Q')
+        exitAction.triggered.connect(self.buttonClicked)
+
+        self.toolbar = self.addToolBar('Encrypt')
+        self.toolbar.addAction(exitAction)
 
         self.statusBar()
 
