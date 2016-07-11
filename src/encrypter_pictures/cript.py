@@ -10,7 +10,7 @@ def cript(file_name):
     for x in range(width):
         for y in range(height):
             r, g, b = image.getpixel( (x,y) )
-            image.putpixel( (x,y), (r, g+100, b))
+            image.putpixel( (x,y), (r - 100, g + 100, b + 50))
     image.save('out.jpg')
     output_path = os.path.abspath("out.jpg")
     return output_path
