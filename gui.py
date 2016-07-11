@@ -207,5 +207,5 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     imageViewer = ImageViewer()
-    imageViewer.show()
+    imageViewer.showMaximized()
     sys.exit(app.exec_())
