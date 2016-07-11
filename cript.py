@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 from PIL import Image
 
-if __name__ == "__main__":
-    image = Image.open('fraz.jpg')
+def cript(file_name):
+    """docstring for cript"""
+    image = Image.open(file_name)
     width, height = image.size
 
     for x in range(width):

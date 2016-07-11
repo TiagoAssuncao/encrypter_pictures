@@ -2,8 +2,10 @@
 from PyQt5.QtCore import QDir, Qt
 from PyQt5.QtGui import QImage, QPainter, QPalette, QPixmap
 from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QLabel,
-        QMainWindow, QMenu, QMessageBox, QScrollArea, QSizePolicy)
+        QMainWindow, QMenu, QMessageBox, QScrollArea, QSizePolicy, QPushButton,
+        QHBoxLayout, QVBoxLayout)
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
+from cript import cript
 
 
 class ImageViewer(QMainWindow):
@@ -23,20 +25,48 @@ class ImageViewer(QMainWindow):
         self.scrollArea.setWidget(self.imageLabel)
         self.setCentralWidget(self.scrollArea)
 
+        # okButton = QPushButton("OK")
+        # cancelButton = QPushButton("Cancel")
+        #
+        # hbox = QHBoxLayout()
+        # hbox.addStretch(1)
+        # hbox.addWidget(okButton)
+        # hbox.addWidget(cancelButton)
+        #
+        # vbox = QVBoxLayout()
+        # vbox.addStretch(1)
+        # vbox.addLayout(hbox)
+        #
+        # # self.setLayout(vbox)
         self.createActions()
         self.createMenus()
+        self.initUI()
 
         self.setWindowTitle("Image Viewer")
         self.resize(500, 400)
 
+    def initUI(self):
+
+        self.okButton = QPushButton("Criptografar", self)
+        self.okButton.move(45, 50)  
+        self.okButton.clicked.connect(self.buttonClicked)
+
+        self.statusBar()
+
+    def buttonClicked(self):
+        try:
+            self.statusBar().showMessage("Encrypting: " + self.fileName)
+        except AttributeError:
+            self.statusBar().showMessage("Select an image")
+
     def open(self):
-        fileName, _ = QFileDialog.getOpenFileName(self, "Open File",
+        self.fileName, _ = QFileDialog.getOpenFileName(self, "Open File",
                 QDir.currentPath())
-        if fileName:
-            image = QImage(fileName)
+        if self.fileName:
+            image = QImage(self.fileName)
             if image.isNull():
                 QMessageBox.information(self, "Image Viewer",
-                        "Cannot load %s." % fileName)
+                        "Cannot load %s." % self.fileName)
                 return
 
             self.imageLabel.setPixmap(QPixmap.fromImage(image))
