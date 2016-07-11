@@ -6,8 +6,9 @@ from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QLabel,
         QHBoxLayout, QVBoxLayout, qApp)
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
 from cript import cript
-import sys
+import sys, os
 
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class ImageViewer(QMainWindow):
     def __init__(self):
@@ -30,16 +31,24 @@ class ImageViewer(QMainWindow):
         self.createMenus()
         self.initUI()
 
-        self.setWindowTitle("Image Viewer")
+        self.setWindowTitle("Encrypter Pictures")
         self.resize(500, 400)
 
     def initUI(self):
 
-        exitAction = QAction(QIcon('encrypt.png'), 'Encrypt', self)
-        exitAction.setShortcut('Ctrl+Q')
-        exitAction.triggered.connect(self.buttonClicked)
+        encrypt = QAction(QIcon(CURRENT_DIR + '/encrypt.png'), 'Encrypt', self)
+        encrypt.setShortcut('Ctrl+D')
+        encrypt.triggered.connect(self.buttonClicked)
 
-        self.toolbar = self.addToolBar('Encrypt')
+        open_file= QAction(QIcon(CURRENT_DIR + '/open.png'), 'Exit', self)
+        open_file.triggered.connect(self.open)
+
+        exitAction = QAction(QIcon(CURRENT_DIR + '/exit24.png'), 'Exit', self)
+        exitAction.triggered.connect(qApp.quit)
+
+        self.toolbar = self.addToolBar('Exit')
+        self.toolbar.addAction(open_file)
+        self.toolbar.addAction(encrypt)
         self.toolbar.addAction(exitAction)
 
         self.statusBar()
@@ -125,30 +134,30 @@ class ImageViewer(QMainWindow):
                 "<p>The <b>Encrypter Pictures</b> is a software to encrypt and decrypting any given image")
 
     def createActions(self):
-        self.openAct = QAction("&Open...", self, shortcut="Ctrl+O",
+        self.openAct = QAction(QIcon(CURRENT_DIR + '/open.png'), "&Open...", self, shortcut="Ctrl+O",
                 triggered=self.open)
 
-        self.printAct = QAction("&Print...", self, shortcut="Ctrl+P",
+        self.printAct = QAction(QIcon(CURRENT_DIR + '/print.png'), "&Print...", self, shortcut="Ctrl+P",
                 enabled=False, triggered=self.print_)
 
-        self.exitAct = QAction("E&xit", self, shortcut="Ctrl+Q",
+        self.exitAct = QAction(QIcon(CURRENT_DIR + '/exit24.png'), "E&xit", self, shortcut="Ctrl+Q",
                 triggered=self.close)
 
-        self.zoomInAct = QAction("Zoom &In (25%)", self, shortcut="Ctrl++",
+        self.zoomInAct = QAction(QIcon(CURRENT_DIR + '/zoom_in.png'), "Zoom &In (25%)", self, shortcut="Ctrl++",
                 enabled=False, triggered=self.zoomIn)
 
-        self.zoomOutAct = QAction("Zoom &Out (25%)", self, shortcut="Ctrl+-",
+        self.zoomOutAct = QAction(QIcon(CURRENT_DIR + '/zoom_out.png'), "Zoom &Out (25%)", self, shortcut="Ctrl+-",
                 enabled=False, triggered=self.zoomOut)
 
-        self.normalSizeAct = QAction("&Normal Size", self, shortcut="Ctrl+S",
+        self.normalSizeAct = QAction(QIcon(CURRENT_DIR + '/zoom.png'), "&Normal Size", self, shortcut="Ctrl+S",
                 enabled=False, triggered=self.normalSize)
 
-        self.fitToWindowAct = QAction("&Fit to Window", self, enabled=False,
+        self.fitToWindowAct = QAction(QIcon(CURRENT_DIR + '/expand.png'), "&Fit to Window", self, enabled=False,
                 checkable=True, shortcut="Ctrl+F", triggered=self.fitToWindow)
 
-        self.aboutAct = QAction("&About", self, triggered=self.about)
+        self.aboutAct = QAction(QIcon(CURRENT_DIR + '/info.png'), "&About", self, triggered=self.about)
 
-        self.aboutQtAct = QAction("About &Qt", self,
+        self.aboutQtAct = QAction(QIcon(CURRENT_DIR + '/pyqt.png'), "About &Qt", self,
                 triggered=QApplication.instance().aboutQt)
 
     def createMenus(self):
