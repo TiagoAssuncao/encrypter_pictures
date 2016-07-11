@@ -1,4 +1,5 @@
 # Encrypter Pictures
+[![Build Status](https://travis-ci.org/TiagoAssuncao/encrypter_pictures.svg?branch=master)](https://travis-ci.org/TiagoAssuncao/encrypter_pictures)
 ***
 
 System wich cat a jpg image and crip and decript it with rsa.
