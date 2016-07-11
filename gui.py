@@ -25,19 +25,6 @@ class ImageViewer(QMainWindow):
         self.scrollArea.setWidget(self.imageLabel)
         self.setCentralWidget(self.scrollArea)
 
-        # okButton = QPushButton("OK")
-        # cancelButton = QPushButton("Cancel")
-        #
-        # hbox = QHBoxLayout()
-        # hbox.addStretch(1)
-        # hbox.addWidget(okButton)
-        # hbox.addWidget(cancelButton)
-        #
-        # vbox = QVBoxLayout()
-        # vbox.addStretch(1)
-        # vbox.addLayout(hbox)
-        #
-        # # self.setLayout(vbox)
         self.createActions()
         self.createMenus()
         self.initUI()
@@ -48,7 +35,7 @@ class ImageViewer(QMainWindow):
     def initUI(self):
 
         self.okButton = QPushButton("Criptografar", self)
-        self.okButton.move(45, 50)  
+        self.okButton.move(45, 50)
         self.okButton.clicked.connect(self.buttonClicked)
 
         self.statusBar()
@@ -58,6 +45,7 @@ class ImageViewer(QMainWindow):
             self.statusBar().showMessage("Encrypting: " + self.fileName)
             self.output_path = cript(self.fileName)
             self.show_image()
+            self.statusBar().showMessage("Salve on: " + self.output_path)
         except AttributeError:
             self.statusBar().showMessage("Select an image")
 
