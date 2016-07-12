@@ -107,7 +107,12 @@ class ImageViewer(QMainWindow):
             rect = painter.viewport()
             size = self.imageLabel.pixmap().size()
             size.scale(rect.size(), Qt.KeepAspectRatio)
-            painter.setViewport(rect.x(), rect.y(), size.width(), size.height())
+            painter.setViewport(
+                rect.x(),
+                rect.y(),
+                size.width(),
+                size.height()
+            )
             painter.setWindow(self.imageLabel.pixmap().rect())
             painter.drawPixmap(0, 0, self.imageLabel.pixmap())
 
@@ -131,34 +136,66 @@ class ImageViewer(QMainWindow):
 
     def about(self):
         QMessageBox.about(self, "About Encrypter Pictures",
-                "<p>The <b>Encrypter Pictures</b> is a software to encrypt and decrypting any given image")
+                "<p>The <b>Encrypter Pictures</b> is a software to encrypt and"
+                "decrypting any given image")
 
     def createActions(self):
-        self.openAct = QAction(QIcon(CURRENT_DIR + '/open.png'), "&Open...", self, shortcut="Ctrl+O",
-                triggered=self.open)
+        self.openAct = QAction(
+            QIcon(CURRENT_DIR + '/open.png'),
+            "&Open...", self, shortcut="Ctrl+O",
+            triggered=self.open
+        )
 
-        self.printAct = QAction(QIcon(CURRENT_DIR + '/print.png'), "&Print...", self, shortcut="Ctrl+P",
-                enabled=False, triggered=self.print_)
+        self.printAct = QAction(
+            QIcon(CURRENT_DIR + '/print.png'),
+            "&Print...", self, shortcut="Ctrl+P",
+            enabled=False, triggered=self.print_
+        )
 
-        self.exitAct = QAction(QIcon(CURRENT_DIR + '/exit24.png'), "E&xit", self, shortcut="Ctrl+Q",
-                triggered=self.close)
+        self.exitAct = QAction(
+            QIcon(CURRENT_DIR + '/exit24.png'),
+            "E&xit", self, shortcut="Ctrl+Q",
+            triggered=self.close
+        )
 
-        self.zoomInAct = QAction(QIcon(CURRENT_DIR + '/zoom_in.png'), "Zoom &In (25%)", self, shortcut="Ctrl++",
-                enabled=False, triggered=self.zoomIn)
+        self.zoomInAct = QAction(
+            QIcon(CURRENT_DIR + '/zoom_in.png'),
+            "Zoom &In (25%)", self, shortcut="Ctrl++",
+            enabled=False, triggered=self.zoomIn
+        )
 
-        self.zoomOutAct = QAction(QIcon(CURRENT_DIR + '/zoom_out.png'), "Zoom &Out (25%)", self, shortcut="Ctrl+-",
-                enabled=False, triggered=self.zoomOut)
+        self.zoomOutAct = QAction(
+            QIcon(CURRENT_DIR + '/zoom_out.png'),
+            "Zoom &Out (25%)", self, shortcut="Ctrl+-",
+            enabled=False, triggered=self.zoomOut
+        )
 
-        self.normalSizeAct = QAction(QIcon(CURRENT_DIR + '/zoom.png'), "&Normal Size", self, shortcut="Ctrl+S",
-                enabled=False, triggered=self.normalSize)
+        self.normalSizeAct = QAction(
+            QIcon(CURRENT_DIR + '/zoom.png'),
+            "&Normal Size", self, shortcut="Ctrl+S",
+            enabled=False, triggered=self.normalSize
+        )
 
-        self.fitToWindowAct = QAction(QIcon(CURRENT_DIR + '/expand.png'), "&Fit to Window", self, enabled=False,
-                checkable=True, shortcut="Ctrl+F", triggered=self.fitToWindow)
+        self.fitToWindowAct = QAction(
+            QIcon(CURRENT_DIR + '/expand.png'),
+            "&Fit to Window",
+            self,
+            enabled=False,
+            checkable=True,
+            shortcut="Ctrl+F",
+            triggered=self.fitToWindow
+        )
 
-        self.aboutAct = QAction(QIcon(CURRENT_DIR + '/info.png'), "&About", self, triggered=self.about)
+        self.aboutAct = QAction(
+            QIcon(CURRENT_DIR + '/info.png'),
+            "&About", self, triggered=self.about
+        )
 
-        self.aboutQtAct = QAction(QIcon(CURRENT_DIR + '/pyqt.png'), "About &Qt", self,
-                triggered=QApplication.instance().aboutQt)
+        self.aboutQtAct = QAction(
+            QIcon(CURRENT_DIR + '/pyqt.png'),
+            "About &Qt", self,
+            triggered=QApplication.instance().aboutQt
+        )
 
     def createMenus(self):
         self.fileMenu = QMenu("&File", self)
@@ -189,7 +226,8 @@ class ImageViewer(QMainWindow):
 
     def scaleImage(self, factor):
         self.scaleFactor *= factor
-        self.imageLabel.resize(self.scaleFactor * self.imageLabel.pixmap().size())
+        self.imageLabel.resize(self.scaleFactor
+                               * self.imageLabel.pixmap().size())
 
         self.adjustScrollBar(self.scrollArea.horizontalScrollBar(), factor)
         self.adjustScrollBar(self.scrollArea.verticalScrollBar(), factor)
